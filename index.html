@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+
+    <link
+      rel="shortcut icon"
+      href="./assets/taskManagerLogoIcon.jpg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h2>My tasks</h2>
+
+      <div>
+        <button class="showAddTaskBtn">Add Task</button>
+      </div>
+    </header>
+
+    <div class="mainContainer">
+      <div class="listBar">
+        <ul>
+          <li>
+            <button class="list active">
+              <i class="fa-solid fa-list fa-lg"></i> List
+            </button>
+          </li>
+          <li>
+            <button class="board">
+              <i class="fa-solid fa-grip fa-lg"></i> Board
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- TASKS CONTAINER -->
+      <div class="tasksContainer">
+        <!-- TO DO CONTAINER -->
+        <div class="todoContainer">
+          <h4>
+            <i
+              class="fa-solid fa-circle fa-xs"
+              style="color: rgb(255, 155, 171)"
+            ></i>
+            To do
+          </h4>
+          <ul class="todoTasks">
+            <li class="sample">
+              <ul class="tasksInfo">
+                <li>Task name</li>
+                <li>dd-mm-yyyy</li>
+                <li>
+                  <button class="descriptionBtnSample">
+                    <i class="fa-solid fa-chevron-right fa-lg"></i>
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- DOING CONTAINER -->
+        <div class="doingContainer">
+          <h4>
+            <i class="fa-solid fa-circle fa-xs" style="color: skyblue"></i>
+            Doing
+          </h4>
+          <ul class="doingTasks">
+            <li class="sample">
+              <ul class="tasksInfo">
+                <li>Task name</li>
+                <li>dd-mm-yyyy</li>
+                <li>
+                  <button class="descriptionBtnSample">
+                    <i class="fa-solid fa-chevron-right fa-lg"></i>
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- DONE CONTAINER -->
+        <div class="doneContainer">
+          <h4>
+            <i
+              class="fa-solid fa-circle fa-xs"
+              style="color: rgb(0, 255, 187)"
+            ></i>
+            Done
+          </h4>
+          <ul class="doneTasks">
+            <li class="sample">
+              <ul class="tasksInfo">
+                <li>Task name</li>
+                <li>dd-mm-yyyy</li>
+                <li>
+                  <button class="descriptionBtnSample">
+                    <i class="fa-solid fa-chevron-right fa-lg"></i>
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD TASK CONTAINER -->
+    <form action="">
+      <div class="addTaskContainer">
+        <button class="closeContainerBtn">
+          <i class="fa-solid fa-x fa-lg"></i>
+        </button>
+
+        <h2>Add task</h2>
+        <label for="taskName">Name</label><br />
+        <input type="text" id="taskName" required /><br />
+
+        <label for="description">Description</label><br />
+        <input type="text" id="taskDescription" required />
+
+        <label for="dutedate">Due Date</label><br />
+        <input type="date" id="duedate" />
+        <h3>Status</h3>
+        <select name="status" id="status">
+          <option value="todo">To do</option>
+          <option value="doing">Doing</option>
+          <option value="done">Done</option>
+        </select>
+
+        <div class="addTaskBtnContainer">
+          <button type="submit" class="addTaskBtn">Add Task</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- TASK DESCRIPTION CONTAINER -->
+    <div class="tasksDescContainer">
+      <button class="closeContainerBtn">
+        <i class="fa-solid fa-x fa-lg"></i>
+      </button>
+
+      <!-- has task -->
+      <div class="hasTask"></div>
+
+      <!-- no task -->
+      <div class="noTask">
+        <h3>There's no task at the moment.</h3>
+        <button class="showAddTaskBtn">Add Task</button>
+      </div>
+    </div>
+
+    <!-- POPUP NOTIFICATION -->
+    <div class="popupNotif">adas</div>
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/3c48d2ea96.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
