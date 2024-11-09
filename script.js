@@ -57,6 +57,8 @@ $(document).ready(function () {
     $(".doneTasks").removeClass("addedDoneTasks");
   });
 
+  let formattedDate;
+
   // Show the "Add Task" form and hide description container
   $(".showAddTaskBtn").click(function () {
     $(".addTaskContainer").fadeIn(300);
@@ -66,9 +68,8 @@ $(document).ready(function () {
 
     // generate min attribute of date
     const date = new Date();
-    const formattedDate = date.toISOString().split("T")[0];
-    console.log(formattedDate);
-    $("#duedate").attr("min", formattedDate)
+    formattedDate = date.toISOString().split("T")[0];
+    $("#duedate").attr("min", formattedDate);
   });
 
   // Close button for both "Add Task" and description containers
@@ -90,15 +91,23 @@ $(document).ready(function () {
     const duedate = $("#duedate").val();
     const taskStatus = $("#status").val();
 
-    console.log(duedate);
-    console.log(typeof duedate);
-
     if (!taskName || !taskDescription || !duedate || !taskStatus) {
       $(".popupNotif").fadeIn();
       $(".popupNotif").text("Please fill in all required fields.");
       setTimeout(() => {
         $(".popupNotif").fadeOut();
       }, 2000);
+      return;
+    }
+
+    if (duedate < formattedDate) {
+      $(".popupNotif").fadeIn();
+      $(".popupNotif").text(
+        `Invalid Date! Value must be (${formattedDate} or later).`
+      );
+      setTimeout(() => {
+        $(".popupNotif").fadeOut();
+      }, 2300);
       return;
     }
 
@@ -120,11 +129,13 @@ $(document).ready(function () {
       dueDate: duedate,
     };
 
+    // tasks samples hide
     $(".sample").hide();
 
-    console.log(tasksData);
-
-    const taskItems = `<ul class="tasksInfo">
+    const tasksInfoClass = $(".list").hasClass("active")
+      ? "tasksInfo"
+      : "addedTasksInfo";
+    const taskItems = `<ul class="${tasksInfoClass}">
                         <li>${taskName}</li>
                         <li>Due on: ${tasksData[listId].dueDate}</li>
                         <li><button class="descriptionBtn" data-id="${listId}"><i class="fa-solid fa-chevron-right fa-lg"></i></button></li>
@@ -133,14 +144,19 @@ $(document).ready(function () {
     let taskContainer = "";
     switch (taskStatus) {
       case "todo":
-        taskContainer = ".todoTasks";
+        taskContainer = $(".list").hasClass("active")
+          ? ".todoTasks"
+          : ".addedTodoTasks";
         break;
       case "doing":
-        taskContainer = ".doingTasks";
-        hideSample = ".doingSample";
+        taskContainer = $(".list").hasClass("active")
+          ? ".doingTasks"
+          : ".addedDoingTasks";
         break;
       case "done":
-        taskContainer = ".doneTasks";
+        taskContainer = $(".list").hasClass("active")
+          ? ".doneTasks"
+          : ".addedDoneTasks";
         break;
       default:
         console.log("No STATUS");
@@ -151,6 +167,12 @@ $(document).ready(function () {
     taskItem.id = `${listId}`;
     taskItem.innerHTML = taskItems;
     $(taskContainer).append(taskItem);
+
+    // reset the the values after successfully added
+    $("#taskName").val("");
+    $("#taskDescription").val("");
+    $("#duedate").val("");
+    $("#status").val("todo");
   });
 
   $(".descriptionBtnSample").click(function () {
@@ -194,5 +216,8 @@ $(document).ready(function () {
     delete tasksData[taskId]; // Remove task from tasksData
     document.getElementById(taskId).remove();
     $(".tasksDescContainer").fadeOut(300);
+
+    $("header").css({ filter: "blur(0)" });
+    $(".mainContainer").css({ filter: "blur(0)" });
   });
 });
